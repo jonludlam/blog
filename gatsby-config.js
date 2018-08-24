@@ -1,8 +1,8 @@
 module.exports = {
   siteMetadata: {
     url: 'https://lumen.netlify.com',
-    title: 'Blog by John Doe',
-    subtitle: 'Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu.',
+    title: 'Blog by Jon Ludlam',
+    subtitle: 'Programming, mainly',
     copyright: '© All rights reserved.',
     disqusShortname: '',
     menu: [
@@ -20,11 +20,11 @@ module.exports = {
       }
     ],
     author: {
-      name: 'John Doe',
-      email: '#',
+      name: 'Jon Ludlam',
+      email: 'jon@recoil.org',
       telegram: '#',
-      twitter: '#',
-      github: '#',
+      twitter: 'jonludlam',
+      github: 'jonludlam',
       rss: '#',
       vk: '#'
     }

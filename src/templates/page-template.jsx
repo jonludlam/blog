@@ -1,6 +1,7 @@
 import React from 'react';
 import Helmet from 'react-helmet';
 import PageTemplateDetails from '../components/PageTemplateDetails';
+import { withPrefix } from 'gatsby-link'
 
 class PageTemplate extends React.Component {
   render() {
@@ -11,7 +12,7 @@ class PageTemplate extends React.Component {
 
     return (
       <div>
-        <Helmet>
+        <Helmet>p
           <title>{`${pageTitle} - ${title}`}</title>
           <meta name="description" content={description} />
         </Helmet>

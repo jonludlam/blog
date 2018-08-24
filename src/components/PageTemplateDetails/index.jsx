@@ -12,7 +12,11 @@ class PageTemplateDetails extends React.Component {
         <div className="content">
           <div className="content__inner">
             <div className="page">
-              <h1 className="page__title">{page.frontmatter.title}</h1>
+              <h1 className="page__title">{page.frontmatter.title} foo</h1>
+              <div>
+                evaluator results: 
+              </div>
+
               <div className="page__body" dangerouslySetInnerHTML={{ __html: page.html }} />
             </div>
           </div>
