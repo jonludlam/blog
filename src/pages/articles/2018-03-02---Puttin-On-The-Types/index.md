@@ -101,6 +101,7 @@ let t =
         ()
 ```
 
+where `create_obj` creates an `obj` value, and `uid` and `field` are simply helper functions that construct values of type `field` as declared above.
 We're simply creating a value representing the VM object using the [`create_obj`](https://github.com/xapi-project/xen-api/blob/a3d339335fd6f4d1f649a40771f0847abdc10e63/ocaml/idl/datamodel_common.ml#L484-L532) function, to which we pass some interesting bits of metadata associated with the object - we store it in the database, it's been in since the Rio release (4.0) and some other miscellaneous values. We also list the API methods we might use on a VM, and importantly for the database, the `contents` argument lists all of the fields in the object - for example we've got here a field called "VBDs" that has a type defined by the `ty` parameter as `Set (Ref _vbd)`, and a field `other_config` which has a type `Map (String, String)`, representing, as you might expect, a string to string map. These types are values of type [`Datamodel_types.ty`](https://github.com/xapi-project/xen-api/blob/a3d339335fd6f4d1f649a40771f0847abdc10e63/ocaml/idl/datamodel_types.ml), and are very important, so let's look at them more closely.
 
 ```ocaml
@@ -289,6 +290,8 @@ end = struct
     get_field "VBD" (Ref.string_of self) "VM" !db |> Ref.of_string
 end
 ```
+
+There's no context on these setters and getters - they assume there's one global database into which we can set values and get them back later. Since the database itself is immutable we implement setters by having a global mutable variable that holds the current database. A setter then takes this, applies the setter to create a new database, and puts it back into the mutable variable. 
 
 Putting this all together with the definitions from last time we get a complete example:
 

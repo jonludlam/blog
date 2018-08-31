@@ -12,7 +12,7 @@ tags:
 description: "Here we start improving on the state of the art in xapi today by using the type system to reduce the amount of code we need to generate."
 ---
 
-This approach works nicely but involves an awful lot of code generation - right now we create almost 25000 lines of database accessor functions alone. Let's now move beyond where xapi is today and start examining how we might do things more directly, and we'll start by trying to do type-safe setters and getters without having to generate the `VM` and `VBD` modules we saw last time. Let's look again at the values we've been creating in the datamodel modules.
+The approach in the last article works very nicely indeed - but it does involve an awful lot of code generation. Right now, for example, we create almost 25000 lines of database accessor functions alone. So now let's move beyond where xapi is today and start examining how we might do things more directly, and we'll start by trying to do type-safe setters and getters without having to generate the `VM` and `VBD` modules we saw last time. We'll begin by looking again at the values we've been creating in the datamodel modules.
 
 Recall that the datamodel module contained declarations of the object classes that included list of fields:
 
@@ -26,7 +26,8 @@ Recall that the datamodel module contained declarations of the object classes th
         ])
 ```
 
-If we added some type parameters to those field values we should be able to write generic `DB.get` and `DB.get` functions that use these declarations directly rather than having to generate a specific function for every field. A definition of a field type that would allow this would look something like this:
+As we saw before, these `field` functions simply constructs field` values, which is a simplerecord with a bunch of metadata about the field.  
+If we take that simple `field` type declaration and add some type parameters we will be able to write generic `DB.get` and `DB.get` functions that use these declarations directly rather than having to generate a specific function for every field. A cut-down definition of a field type that would allow this would look something like this:
 
 ```ocaml
 type ('c, 'f) field = {
@@ -36,7 +37,7 @@ type ('c, 'f) field = {
 }
 ```
 
-Here we've got a type parameterized over two type variables: `'c` and `'f`. The first variable, `'c`, represents the class and is phantom in the same way we previously saw for the Ref.t type. The `'f` variable represents the OCaml type of the field, e.g. string or int64. Let's pop this type into a module with some helper functions:
+Here we've got a type parameterized over two type variables: `'c` and `'f`. The first variable, `'c`, represents the class (e.g. VM or VBD) and is phantom in the same way we previously saw for the `Ref.t` type. The `'f` variable represents the OCaml type of the field, e.g. string for the `name` field or int64 for the `memory` field. Let's pop this type into a module with some helper functions:
 
 ```ocaml
 module Field : sig
