@@ -1,6 +1,7 @@
 module.exports = {
+  pathPrefix: '/~jludlam/blog',
   siteMetadata: {
-    url: 'https://lumen.netlify.com',
+    url: 'https://www.uk.xensource.com/~jludlam/blog',
     title: 'Blog by Jon Ludlam',
     subtitle: 'Programming, mainly',
     copyright: '© All rights reserved.',

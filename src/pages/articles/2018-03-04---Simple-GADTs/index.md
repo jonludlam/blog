@@ -51,7 +51,7 @@ type _ cls =
   | VBD : [`vbd] cls
 ```
 
-Now we can pass this to our field constructor and Ref.of_string function and we no longer have to worry about accidentally passing a string saying "VBD" and doing a type constraint of `vm`, because our one value of type `'a cls` gives us _both_ effects we wanted - it carries the type constraint _and_ we can pattern match on it to get our table name.
+Now we can pass this to our field constructor and `Ref.of_string` function and we no longer have to worry about accidentally passing a string saying "VBD" and doing a type constraint of `vm`, because our one value of type `'a cls` gives us _both_ effects we wanted - it carries the type constraint _and_ we can pattern match on it to get our table name.
 
 ```ocaml
 module Ref : sig
@@ -67,7 +67,7 @@ end = struct
 end
 ```
 
-We have to update our String_to_DM functions that are creating Ref.t values:
+We have to update our `String_to_DM` functions that are creating Ref.t values:
 
 ```ocaml
 module String_to_DM = struct
@@ -102,7 +102,7 @@ end = struct
 end
 ```
 
-Unfortunately if we were just to type this in, we would run smack into the first and biggest issue with GADTs: They don't play nicely with type inference. It fails here:
+Unfortunately if we were just to type this in, we would run smack into the first and biggest issue with GADTs: They don't play nicely with type inference. It fails here, as we can see in utop:
 
 ```ocaml
 utop # let table_of cls = match cls with | VM -> "VM" | VBD -> "VBD";;
@@ -126,7 +126,7 @@ let vbd_vm = Field.construct "VM" VBD (Ref.of_string VM) (Ref.string_of)
 let memory = Field.construct "memory" VM (int_of_string) (string_of_int)
 ```
 
-Next on our hit list is to get rid of the String_to_DM and DM_to_String modules.
+Next on our hit list is to get rid of the `String_to_DM` and `DM_to_String` modules.
 
 Full code of db4:
 

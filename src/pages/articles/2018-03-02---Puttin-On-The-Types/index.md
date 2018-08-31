@@ -222,13 +222,13 @@ val function_for_VM_only : [`vm] Ref.t -> unit
 
 As well as the `client.ml` and `server.ml` modules mentioned above, the code generator also generates modules to access the database in a typesafe fashion. These are:
 
-1. `DM_to_String` - containing functions to convert to strings from the OCaml representation of the datamodel types (e.g. `(Set (Ref _vbd))` or `Map(String,String)` from above)
+1. `DM_to_String` - containing functions to convert to strings from the more complex OCaml representation of the datamodel types (e.g. `(Set (Ref _vbd))` or `Map(String,String)` from above). Note that for simple OCaml representations we'll inline the conversion.
 
 2. `String_to_DM` - containing functions to convert from strings back to the OCaml types.
 
 3. A module per class containing setters and getters for each field of the object.
 
-In the VM object definition excerpt above we had a field called `VBDs` that had type `Set (Ref _vbd)`. The entry for that in The generated conversion modules might look like this:
+In the VM object definition excerpt above we had a field called `VBDs` that had type `Set (Ref _vbd)`. The entry for that in the generated conversion modules might look like this:
 
 ```ocaml
 module DM_to_String = struct

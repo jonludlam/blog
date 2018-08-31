@@ -89,7 +89,7 @@ type _ ty =
 
 Because, of course, when we actually use the `Set` constructor it is used in a way that looks a lot like function application (`Set Int` for example), so it's  natural to use the function syntax to declare them.
 
-Having said that, the type's not quite right yet. We want the right hand side, where we currently have `'b ty`, to have the type we want values to have. So if we've got `Set Int`, how do we want to represent this in a normal OCaml type? An int list might be a reasonable first go. The type of our constructor should look like this then:
+Having said that, the type's not quite right yet. We want the right hand side, where we currently have `'b ty`, to have the type we want values to have. So if we've got `Set Int`, how do we want to represent this in a normal OCaml type? An `int list` might be a reasonable first go. Remembering that the type of `Int` is `int ty`, we can see the the type of our constructor should look like this:
 
 ```ocaml
 type _ ty =
@@ -222,7 +222,7 @@ Looking back at what we've just done, the Map and List to string convertions are
 Here's the final `db5.ml`:
 
 ```ocaml
-(* DB4 - GADTs for marshalling *)
+(* DB5 - GADTs for marshalling *)
 
 module StringMap = Map.Make(String)
 
