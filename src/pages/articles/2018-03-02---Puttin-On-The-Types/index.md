@@ -197,7 +197,7 @@ Phantom type are those where a type is parameterized but the type parameter does
 type 'a t = string
 ```
 
-This says that all references are strings and actually have nothing to do with the `'a`. However, we hide the concrete representation outside of the module by using a signature that simply exposes the Ref.t as an _opaque_ parameterized type.
+This says that all references are strings and actually have nothing to do with the `'a`. However, we hide the concrete representation outside of the module by using a signature that simply exposes the Ref.t as an _opaque_ parameterized type - that is, nobody who has a `Ref.t` in their hands knows that it's actually a string.
 
 Let's see what happens when we try to create one of these:
 
@@ -219,6 +219,10 @@ and we can also use this to constrain the types our functions will accept. For e
 ```ocaml
 val function_for_VM_only : [`vm] Ref.t -> unit
 ```
+
+We use this sort of thing extensively to ensure we're always using the right references in the right places.
+
+### Database Accessors
 
 As well as the `client.ml` and `server.ml` modules mentioned above, the code generator also generates modules to access the database in a typesafe fashion. These are:
 
